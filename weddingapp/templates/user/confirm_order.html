@@ -1,0 +1,52 @@
+{% extends 'user/layout1.html' %}
+
+{% block statement %}
+    <p class="display-4 color1">Welcome, {{ gdetails.guest_fname }} </p>
+    {% if gdetails.guest_image != None %}
+    <img src="{{url_for('static', filename='uploads/'+gdetails.guest_image)}}" height="200">
+    {% else %}
+    <a href= "/profile/uploadpicture">Click here to upload picture</a>
+    {% endif %}
+    
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% include 'user/navig.html' %}
+{% endblock %}
+
+{% block form %}
+{{ promised_gift }}
+<h3>Order Confirmation</h3>
+<p>{{ deets }}</p>
+
+<table class= "table table-striped">
+  <thead>
+    <th>S/N</th>
+    <th>Item</th>
+    <th>Price</th>
+  </thead>
+  <tbody>
+    {% for i,j in deets %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{j.item_info.uni_name}}</td>
+      <td>{{"{:,.2f}".format(j.det_itemprice)}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan= "2"><b>Total:</b></td>
+      <td><b>{{ "{:,.2f}".format(total) }}</b></td>
+    </tr>
+  </tbody>
+</table>
+
+<a href= "" class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;">Confirm Payment</a>
+
+{% endblock form %}

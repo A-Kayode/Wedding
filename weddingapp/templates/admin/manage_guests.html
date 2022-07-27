@@ -1,0 +1,30 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+<h2>Manage Guests</h2>
+<div class= "row my-2">
+	<div class= "col">
+		
+	</div>
+</div>
+
+<div class= "row">
+	<div class= "col">
+		<table class= "table table-striped">
+			<thead>
+				<th>#</th>
+				<th>Fullname</th>
+				<th>Date Registered</th>
+			</thead>
+			<tbody>
+				{% for i in records %}
+				<tr>
+				<td>{{ loop.index }}</td>
+				<td>{{i.guest_fname}} {{i.guest_lname}}</td>
+				<td>{{ i.guest_regdate.strftime('%d %b %Y') }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock contents %}

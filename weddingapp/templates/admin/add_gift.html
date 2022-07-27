@@ -1,0 +1,21 @@
+{% extends 'admin/admin_panel.html' %}
+{% block contents %}
+<h3>ADD GIFT</h3>
+<div class= "row mt-3">
+	<div class= "col-4">
+		<form action= "/admin/addgift" method="post">
+			<div class= "mb-2">
+				<label class= "form-label">Add Gift</label>
+				<input type= "text" class= "form-control" name= "newgift">
+			</div>
+			<div class= "mb-2">
+				<button class= "btn btn-success">Add Gift</button>
+			</div>
+		</form>
+		{% set m = get_flashed_messages() %}
+		{% for i in m %}
+		<p class= "alert alert-danger">{{i}}</p>
+		{% endfor %}
+	</div>
+</div>
+{% endblock contents %}

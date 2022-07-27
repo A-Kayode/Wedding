@@ -1,0 +1,37 @@
+{% extends 'user/layout1.html'%}
+
+{% block statement %}
+<p class="display-4 color1">Welcome, {{ gdetails.guest_fname }} </p>
+    {% if gdetails.guest_image != None %}
+    <img src="{{url_for('static', filename='uploads/'+gdetails.guest_image)}}" height="200">
+    {% else %}
+    <a href= "/profile/uploadpicture">Click here to upload picture</a>
+    {% endif %}
+    <p class="lead color2">
+       Information about your accomodation is put here.
+    </p>
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% include 'user/navig.html' %}
+{% endblock statement %}
+
+{% block form %}
+<div class= "row">
+	{% if rsp_json.get('status') == 1 %}
+	{% for m in rsp_json.get('message') %}
+	<div class= "col">
+		<h5>{{ m['contact'] }}</h5>
+		<img src= "{{m['image']}}">
+	</div>
+	{% endfor %}
+	{% endif %}
+</div>
+{% endblock form %}

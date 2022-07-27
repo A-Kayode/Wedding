@@ -1,0 +1,52 @@
+{% extends 'user/layout1.html' %}
+{% block title %}Signup{% endblock %}
+
+{% block form %}
+<div class="mb-3 d-flex justify-content-center btn-group">
+    <a href="/login" class="btn btn-lg d-inline-block" style="background-color: #a8c868;color:#fff;">Login</a>
+    <a href="/" class="btn btn-lg color3 d-inline-block" style="border:2px solid #a8c868;">Home</a>
+</div>
+
+<form action="/signup" method="post">
+    {{ sform.csrf_token }}
+    <div class="form-floating my-3">
+        {{ sform.fname(class_="form-control form-control-lg", placeholder="First Name", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;") }}
+    </div>
+    <div class="form-floating my-3">
+        {{ sform.lname(class_="form-control form-control-lg", placeholder="Last Name", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;") }}
+    </div>
+    <div class="form-floating my-3">
+        {% for i in sform.email.errors %}
+        <p class= "alert alert-danger">{{i}}</p>
+        {% endfor %}
+
+        {{ sform.email(class_="form-control form-control-lg", placeholder="Email Address", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;") }}
+    </div>
+    <div class="form-floating my-3">
+        {{ sform.pswd(class_="form-control form-control-lg", placeholder="Password", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;") }}
+    </div>
+    <div class="form-floating my-3">
+        {% for i in sform.cpswd.errors %}
+        <p class= "alert alert-danger">{{i}}</p>
+        {% endfor %}
+
+        {{ sform.cpswd(class_="form-control form-control-lg mt-1", placeholder="Confirm password", style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;") }}
+    </div>
+    <div class="d-flex btn-group">
+        {{ sform.submit(class_="btn btn-lg color3 d-inline-block", style="border:2px solid #a8c868;") }}
+    </div>
+</form>
+{% endblock %}
+
+{% block statement%}
+<h1 class="display-3 color1">Mary & John's</h1>
+<h1 class="display-4 color2 mb-3">Wedding invitation</h1>
+
+
+<p class="lead color2">
+    We are delighted to announce that Mary & John are officially tying the knot!
+    Please signup and login to see more details!
+</p>
+<h1 class="display-4 color1 my-3">Signup form</h1>
+{% endblock %}   
+

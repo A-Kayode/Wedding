@@ -1,0 +1,51 @@
+{% extends 'user/layout1.html' %}
+
+{% block statement %}
+    <p class="display-4 color1">Welcome, {{ gdetails.guest_fname }} </p>
+    {% if gdetails.guest_image != None %}
+    <img src="{{url_for('static', filename='uploads/'+gdetails.guest_image)}}" height="200">
+    {% else %}
+    <a href= "/profile/uploadpicture">Click here to upload picture</a>
+    {% endif %}
+    
+    {% set msg = get_flashed_messages(with_categories=True)%}
+    {% if msg %}
+    {% for i in msg %}
+    {% if i[0] == 'error'%}
+    <p class="alert alert-danger">{{i[1]}}</p>
+    {% else %}
+    <p class="alert alert-success">{{i[1]}}</p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% include 'user/navig.html' %}
+{% endblock %}
+
+{% block form %}
+{{ promised_gift }}
+<h3>Buy Asoebi</h3>
+<form action= "{{url_for('buy_asoebi')}}" method= "post">
+  <table class= "table">
+    <thead>
+      <th>S/N</th>
+      <th></th>
+      <th>Uniform</th>
+      <th>Uniform Price</th>
+    </thead>
+    <tbody>
+      {% for g in uni %}
+      <tr>
+      <td>{{ loop.index }}</td>
+      <td><input type= "checkbox" name= "uniform" value= "{{ g.uni_id }}"></td>
+      <td>{{ g.uni_name }}</td>
+      <td>&#8358;{{ "{:,.2f}".format(g.uni_price) }}</td>
+      <tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button class= "btn btn-success">Submit</button>
+  <input type= "hidden", name= "csrf_token" id= "csrf_token" value= "{{csrf_token()}}">
+</form>
+
+<p>{{selected}}</p>
+{% endblock form %}

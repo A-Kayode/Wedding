@@ -1,0 +1,19 @@
+{% extends 'user/layout1.html' %}
+{% block title %} Upload Picture {% endblock title %}
+
+{% block statement %}
+{% include 'user/navig.html' %}
+{% endblock statement %}
+
+{% block form %}
+<h3 class= "m-3">Upload Picture</h3>
+{% set msg = get_flashed_messages() %}
+{% for i in msg %}
+<p class= "alert alert-danger mb-3">{{i}}</p>
+{% endfor %}
+<form action= "/profile/uploadpicture/submit" method= "post" enctype= "multipart/form-data">
+	<input type= "file" name= "pic" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:green;" value= "{{gdetails.guest_fname}}">
+	<button class="btn btn-lg color3 d-inline-block mt-3" style="border:2px solid #BA68C8;" >Upload Picture</button>
+	<input type= "hidden" name= "csrf_token" id= "csrf_token" value= "{{ csrf_token() }}">
+</form>
+{% endblock form %}

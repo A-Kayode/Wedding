@@ -1,0 +1,34 @@
+{% extends 'user/layout1.html' %}
+{% block title %} Update Profile {% endblock title %}
+
+{% block statement %}
+{% include 'user/navig.html' %}
+{% endblock statement %}
+
+{% block form %}
+<h3 class= "mb-3">Update Profile</h3>
+{%set msg = get_flashed_messages()%}
+{% for i in msg %}
+<p class= "alert alert-success">{{i}}</p>
+{% endfor %}
+<form action= "/profile/editprofile" method= "post">
+	<div class= 'row mb-3 align-items-center'>
+		<label class= "col-3">First Name</label>
+		<div class= "col-9"> <input type= "text" name= "fname" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;" value= "{{gdetails.guest_fname}}"> </div>
+	</div>
+	<div class= 'row mb-3 align-items-center'>
+		<label class= "col-3">Last Name</label>
+		<div class= "col-9"> <input type= "text" name= "lname" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;" value= "{{gdetails.guest_lname}}"> </div>
+	</div>
+	<div class= 'row mb-3 align-items-center'>
+		<label class= "col-3">Address</label>
+		<div class= "col-9"> 
+			<textarea name= "addr" class="form-control form-control-lg" style="background-color:rgba(0, 0,0, 0.5);border: 1px solid #a8c868; color:#fff;">{{gdetails.guest_addr}}</textarea> 
+		</div>
+	</div>
+	<div>
+		<button class="btn btn-lg color3 d-inline-block" style="border:2px solid #BA68C8;" onclick= "return confirm('Are you sure you want to update?')">Update</button>
+	</div>
+	<input type= "hidden" name= "csrf_token" id= "csrf_token" value= "{{ csrf_token() }}">
+</form>
+{% endblock form %}
